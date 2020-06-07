@@ -122,3 +122,16 @@ class UpdatePostView(LoginRequiredMixin,UserPassesTestMixin,UpdateView):
         if self.request.user == post.account:
             return True
         return False
+
+
+class DeletePostView(LoginRequiredMixin,UserPassesTestMixin,DeleteView):
+    model = Project
+    
+    success_url = '/'
+    template_name = 'delete.html'
+
+    def test_func(self):
+        post =self.get_object()
+        if self.request.user == post.account:
+            return True
+        return False
