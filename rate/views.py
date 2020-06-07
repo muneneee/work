@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect,HttpResponseRedirect
 from .models import Project,Profile
-from .forms import RegisterForm,ProfileForm,UpdateForm
+from .forms import RegisterForm,ProfileForm,UpdateForm,VoteForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin,UserPassesTestMixin
@@ -18,12 +18,42 @@ def index(request):
     return render(request, 'index.html', {"posts":posts})
 
 
+
+@login_required
 def detail(request,project_id):
-
     post = Project.objects.get(id = project_id)
-    
 
-    return render(request, 'detail.html', {"post":post},{"reviews":reviews})
+
+    try:
+        post = Project.objects.get(id = project_id)
+        average_score = round(((post.design + post.usability + post.content)/3),2)
+        if request.method == 'POST':
+            vote_form = VoteForm(request.POST)
+            if vote_form.is_valid():
+                post.vote_submissions+=1
+                if post.design == 0:
+                    post.design = int(request.POST['design'])
+                else:
+                    post.design = (post.design + int(request.POST['design']))/2
+                if post.usability == 0:
+                    post.usability = int(request.POST['usability'])
+                else:
+                    post.usability = (post.usability + int(request.POST['usability']))/2
+                if post.content == 0:
+                    post.content = int(request.POST['content'])
+                else:
+                    post.content = (post.content + int(request.POST['usability']))/2
+
+                post.save()
+                return redirect('detail',project_id)
+        else:
+            vote_form = VoteForm()
+
+    except Exception as  e:
+        raise Http404()
+    return render(request,'detail.html',{"vote_form":vote_form,"post":post,"average_score":average_score})
+
+
 
 
 
