@@ -5,5 +5,13 @@
 
 
     <h1>WELCOME</h1>
+    {% for post in posts %}
+
+    <div class="col-md-4">
+        <img class="img-fluid" src="{{ post.photo.cdn_url }}" alt="">
+    </div>
+
+    {% endfor%}
+
 
 {% endblock %}
