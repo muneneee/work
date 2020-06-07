@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect
 from .models import Project
 from .forms import RegisterForm
+from django.contrib import messages
 
 
 
