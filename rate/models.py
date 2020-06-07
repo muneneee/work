@@ -10,6 +10,12 @@ class Project(models.Model):
     photo =ImageField(blank=True, manual_crop ="")
     link = models.URLField(max_length = 200, null=True)
     account = models.ForeignKey(User, on_delete=models.CASCADE, related_name='account')
+    design = models.IntegerField(choices=list(zip(range(0, 11), range(0, 11))), default=0)
+    usability = models.IntegerField(choices=list(zip(range(0, 11), range(0, 11))), default=0)
+    content = models.IntegerField(choices=list(zip(range(0, 11), range(0, 11))), default=0)
+    votes = models.IntegerField(default=0)
+
+
 
     def __str__(self):
         return self.title
@@ -33,24 +39,3 @@ class Profile(models.Model):
         return f'{self.user.username} Profile'
 
 
-class Review(models.Model):
-    criteria = models.CharField(max_length =30)
-    project = models.ForeignKey(Project, on_delete=models.CASCADE)
-
-
-    def __str__(self):
-        return self.criteria
-
-
-
-
-
-class Choice(models.Model):
-    criteria = models.ForeignKey(Review, on_delete=models.CASCADE)
-    choice_name = models.CharField(max_length = 30)
-    votes =models.IntegerField(default=0)
-
-
-
-    def __str__(self):
-        return self.choice_name

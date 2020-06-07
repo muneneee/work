@@ -9,14 +9,43 @@
         <div class="col-md-4">
             <hr>
             <hr>
-            <img class="img-fluid" src="{{object.photo.cdn_url}}" alt="">
+                <img class="img-fluid" src="{{post.photo.cdn_url}}" alt="">
+                
+                    {% for review in post.review_set.all %}
+                        <p>{{review.criteria}}</p>
+
+                        <form action="{% url 'detail' post.id %}" method="post">
+                            {% csrf_token %} 
+                            {% for choice in review.choice_set.all %}
+                                <div class="form-check">
+                                    <input
+                                        type="radio"
+                                        name="choice"
+                                        class="form-check-input"
+                                        id="choice{{ forloop.counter }}"
+                                        value="{{ choice.id }}"
+                                    />
+                                    <label for="choice{{ forloop.counter }}">{{ choice.choice_name }}</label
+                                    >
+                                </div>
+                            {% endfor %}
+                            <input type="submit" value="Vote" class="btn btn-success" >
+                        </form>
+
+                    {% endfor %}
+                
             
-            {% if object.account == user %}
+            {% if post.account == user %}
                 <div>
-                    <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'update' object.id %}">Update</a>
-                    <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'delete' object.id %}">Delete</a>
+                    <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'update' post.id %}">Update</a>
+                    <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'delete' post.id %}">Delete</a>
                 </div>
             {% endif %}
+            
+
+                    <p>{{review.criteria}}</p>
+
+             
         </div>
         
         <br><br>

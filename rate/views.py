@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,HttpResponseRedirect
 from .models import Project,Profile
 from .forms import RegisterForm,ProfileForm,UpdateForm
 from django.contrib import messages
@@ -12,9 +12,19 @@ from pyuploadcare.dj.forms import ImageField
 
 def index(request):
 
-    posts = Project .objects.all()
+    posts = Project.objects.all()
+    
 
     return render(request, 'index.html', {"posts":posts})
+
+
+def detail(request,project_id):
+
+    post = Project.objects.get(id = project_id)
+    
+
+    return render(request, 'detail.html', {"post":post},{"reviews":reviews})
+
 
 
 
@@ -93,9 +103,7 @@ class PostView(ListView):
 
 
 
-class DetailView(DetailView):
-    model = Project
-    template_name = 'detail.html'
+
 
 
 class CreateView(LoginRequiredMixin,CreateView):
