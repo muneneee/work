@@ -28,3 +28,40 @@ def register(request):
         form = RegisterForm()
 
     return render(request , 'registration/register.html', {'form':form})
+
+
+
+
+# @login_required
+def profile(request):
+    # current_user = request.user
+    # current_user_id=request.user.id
+    # if request.method == 'POST':
+    #     user_form = UpdateForm(request.POST, instance=request.user)
+    #     profile_form = ProfileForm(request.POST, request.FILES,instance=request.user.profile)
+
+    #     if user_form.is_valid() and profile_form.is_valid():
+    #         user_form.save()
+    #         profile_form.save()
+    #         username = user_form.cleaned_data.get('username')
+    #         messages.success(request, f'Account {username} has been updated')
+    #         return redirect('profile')
+
+
+
+    # else:
+    #     user_form = UpdateForm(instance=request.user)
+    #     profile_form = ProfileForm(instance=request.user.profile)
+
+
+    # try:
+    #     profile = Profile.objects.get(user=current_user)
+    #     posts = Image.objects.filter(account_id= current_user_id)
+
+    # except ObjectDoesNotExist:
+    #     return redirect(profile)
+
+    # context = {'user_form':user_form, 'profile_form':profile_form, 'posts':posts}
+
+
+    return render(request, 'profile.html')#, context)
