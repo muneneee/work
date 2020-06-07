@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from .models import Project
 from .forms import RegisterForm
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 
 
@@ -32,7 +33,7 @@ def register(request):
 
 
 
-# @login_required
+@login_required
 def profile(request):
     # current_user = request.user
     # current_user_id=request.user.id
