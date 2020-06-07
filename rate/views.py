@@ -59,12 +59,12 @@ def profile(request):
         profile_form = ProfileForm(instance=request.user.profile)
 
 
-    # try:
-    #     profile = Profile.objects.get(user=current_user)
-    #     posts = Image.objects.filter(account_id= current_user_id)
+    try:
+        profile = Profile.objects.get(user=current_user)
+        posts = Projects.objects.filter(account_id= current_user_id)
 
-    # except ObjectDoesNotExist:
-    #     return redirect(profile)
+    except ObjectDoesNotExist:
+        return redirect('profile')
 
     context = {'user_form':user_form, 'profile_form':profile_form}
 
@@ -72,6 +72,17 @@ def profile(request):
     return render(request, 'profile.html', context)
 
 
+def search_results(request):
+
+    if 'project' in request.GET and request.GET["project"]:
+        search_term = request.GET.get('project')
+        searched_projects = Project.search_by_title(search_term)
+        message = f"{search_term}"
+
+        return render(request, 'search.html',{"message":message,"projects": searched_projects})
+    else:
+        message = "You haven't searched for any term"
+        return render(request, 'search.html', {"message":message})
 
 
 

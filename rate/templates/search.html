@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{{block.super}}
+
+    <div class="container">
+        <div class="row">
+            {% if projects %}
+            <h2>Found {{ projects|length }} of searched term {{message}}</h2>
+            {% else %}
+            <h2> Found 0 projects for the search term {{message}}</h2>
+            {% endif %}
+
+        </div>
+
+        <div class="row">
+
+            {% if projects %}
+                {% for project in projects %}
+                <div class="col-md-4">
+                    <a href="{% url 'detail' project.id %}"><img class="img-fluid" src="{{ project.photo.cdn_url }}" alt="" style="cursor: pointer;"></a>
+                </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+
+
+{% endblock %}

@@ -15,6 +15,12 @@ class Project(models.Model):
         return self.title
 
 
+    @classmethod
+    def search_by_title(cls,search_term):
+        posts = cls.objects.filter(title__icontains=search_term)
+        return posts
+
+
 
 class Profile(models.Model):
     photo = ImageField(blank = True, manual_crop="")
