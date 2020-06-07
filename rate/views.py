@@ -3,6 +3,8 @@ from .models import Project,Profile
 from .forms import RegisterForm,ProfileForm,UpdateForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin,UserPassesTestMixin
+from django.views.generic import ListView,DetailView,CreateView,UpdateView,DeleteView,View
 from django.core.exceptions import ObjectDoesNotExist
 
 
@@ -67,3 +69,18 @@ def profile(request):
 
 
     return render(request, 'profile.html', context)
+
+
+
+
+
+class PostView(ListView):
+    model = Project
+    template_name = 'index.html'
+    context_object_name = 'posts'
+
+
+
+class DetailView(DetailView):
+    model = Project
+    template_name = 'detail.html'
