@@ -31,3 +31,26 @@ class Profile(models.Model):
 
     def __str__(self):
         return f'{self.user.username} Profile'
+
+
+class Review(models.Model):
+    criteria = models.CharField(max_length =30)
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+
+
+    def __str__(self):
+        return self.criteria
+
+
+
+
+
+class Choice(models.Model):
+    criteria = models.ForeignKey(Review, on_delete=models.CASCADE)
+    choice_name = models.CharField(max_length = 30)
+    votes =models.IntegerField(default=0)
+
+
+
+    def __str__(self):
+        return self.choice_name
