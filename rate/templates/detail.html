@@ -11,7 +11,11 @@
             <hr>
             <img class="img-fluid" src="{{object.photo.cdn_url}}" alt="">
             
-            
+            {% if object.account == user %}
+                <div>
+                    <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'update' object.id %}">Update</a>
+                </div>
+            {% endif %}
         </div>
         
         <br><br>

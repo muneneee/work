@@ -30,6 +30,9 @@
                         <li class="nav-item">
                         <a class="nav-link" href="{% url 'profile' %}">{{ user.username}}</a>
                         </li>
+                        <li class="nav-item">
+                        <a class="nav-link" href="{% url 'create' %}">Submit your site</a>
+                        </li>
                     {% else %}
                         <li class="nav-item">
                         <a class="nav-link" href="{% url 'login' %}">Log in</a>

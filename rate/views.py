@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin,UserPassesTestMixin
 from django.views.generic import ListView,DetailView,CreateView,UpdateView,DeleteView,View
 from django.core.exceptions import ObjectDoesNotExist
+from pyuploadcare.dj.forms import ImageField
 
 
 
@@ -84,3 +85,40 @@ class PostView(ListView):
 class DetailView(DetailView):
     model = Project
     template_name = 'detail.html'
+
+
+class CreateView(LoginRequiredMixin,CreateView):
+    photo = ImageField(label='post')
+
+    model = Project
+    success_url = '/'
+    template_name = 'post_form.html'
+    fields = [ 'title', 'description','photo','link']
+
+
+    def form_valid(self, form):
+        form.instance.account = self.request.user
+        return super().form_valid(form)
+
+
+
+
+class UpdatePostView(LoginRequiredMixin,UserPassesTestMixin,UpdateView):
+    photo = ImageField(label='post')
+
+    model = Project
+    success_url = '/'
+    template_name = 'post_form.html'
+    fields = [ 'title', 'description','photo','link']
+
+
+
+    def form_valid(self, form):
+        form.instance.account = self.request.user
+        return super().form_valid(form)
+
+    def test_func(self):
+        post = self.get_object()
+        if self.request.user == post.account:
+            return True
+        return False
