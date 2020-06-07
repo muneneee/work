@@ -9,7 +9,7 @@ class Project(models.Model):
     description = models.TextField()
     photo =ImageField(blank=True, manual_crop ="")
     link = models.URLField(max_length = 200, null=True)
-
+    account = models.ForeignKey(User, on_delete=models.CASCADE, related_name='account')
 
     def __str__(self):
         return self.title

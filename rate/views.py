@@ -1,8 +1,9 @@
 from django.shortcuts import render,redirect
-from .models import Project
-from .forms import RegisterForm
+from .models import Project,Profile
+from .forms import RegisterForm,ProfileForm,UpdateForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import ObjectDoesNotExist
 
 
 
@@ -35,24 +36,24 @@ def register(request):
 
 @login_required
 def profile(request):
-    # current_user = request.user
-    # current_user_id=request.user.id
-    # if request.method == 'POST':
-    #     user_form = UpdateForm(request.POST, instance=request.user)
-    #     profile_form = ProfileForm(request.POST, request.FILES,instance=request.user.profile)
+    current_user = request.user
+    current_user_id=request.user.id
+    if request.method == 'POST':
+        user_form = UpdateForm(request.POST, instance=request.user)
+        profile_form = ProfileForm(request.POST, request.FILES,instance=request.user.profile)
 
-    #     if user_form.is_valid() and profile_form.is_valid():
-    #         user_form.save()
-    #         profile_form.save()
-    #         username = user_form.cleaned_data.get('username')
-    #         messages.success(request, f'Account {username} has been updated')
-    #         return redirect('profile')
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            username = user_form.cleaned_data.get('username')
+            messages.success(request, f'Account {username} has been updated')
+            return redirect('profile')
 
 
 
-    # else:
-    #     user_form = UpdateForm(instance=request.user)
-    #     profile_form = ProfileForm(instance=request.user.profile)
+    else:
+        user_form = UpdateForm(instance=request.user)
+        profile_form = ProfileForm(instance=request.user.profile)
 
 
     # try:
@@ -62,7 +63,7 @@ def profile(request):
     # except ObjectDoesNotExist:
     #     return redirect(profile)
 
-    # context = {'user_form':user_form, 'profile_form':profile_form, 'posts':posts}
+    context = {'user_form':user_form, 'profile_form':profile_form}
 
 
-    return render(request, 'profile.html')#, context)
+    return render(request, 'profile.html', context)
