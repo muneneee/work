@@ -5,3 +5,9 @@
   }
 
 
+body{
+    background-color: #D0D3D4;
+    max-width: 100%;
+    overflow-x: hidden;
+}
+

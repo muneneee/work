@@ -6,9 +6,9 @@
     <div class="container">
         <div class="row">
             {% if projects %}
-            <h2>Found {{ projects|length }} of searched term {{message}}</h2>
+            <h2 style="font-family: 'Fjalla One', sans-serif;">Found {{ projects|length }} of searched term {{message}}</h2>
             {% else %}
-            <h2> Found 0 projects for the search term {{message}}</h2>
+            <h2 style="font-family: 'Fjalla One', sans-serif;"> Found 0 projects for the search term {{message}}</h2>
             {% endif %}
 
         </div>
@@ -17,9 +17,17 @@
 
             {% if projects %}
                 {% for project in projects %}
-                <div class="col-md-4">
-                    <a href="{% url 'detail' project.id %}"><img class="img-fluid" src="{{ project.photo.cdn_url }}" alt="" style="cursor: pointer;"></a>
-                </div>
+                <div class="col-lg-3 d-flex align-items-stretch">
+                    <div class="card" style="width: 18rem; background-color: rgb(229, 232, 233)">
+                        <img class="card-img-top" src="{{ project.photo.cdn_url }}" alt="Card image cap">
+                        <div class="card-body">
+                        <h5 class="card-title" style="font-family: 'Fjalla One', sans-serif;">{{project.title}}</h5>
+                        <p class="card-text" style="font-family: 'Fjalla One', sans-serif;">{{project.description}}</p>
+                        <a href="{% url 'detail' project.id %}" class="btn btn-outline-primary">View Details</a>
+                        </div>
+                    </div>
+
+            </div>
                 {% endfor %}
             {% endif %}
         </div>

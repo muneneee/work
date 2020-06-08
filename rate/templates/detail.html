@@ -6,28 +6,56 @@
 {{block.super}}
     
 
-        <div class="col-md-4">
+        <div class="col-md-12">
             <hr>
             <hr>
+                <h2 class="text-center" style="font-family: 'Fjalla One', sans-serif;"><strong>{{post.title}}</strong></h2>
                 <img class="img-fluid" src="{{post.photo.cdn_url}}" alt="">
                 
+
+                <div class="jumbotron jumbotron-fluid">
+                    <div class="container">
+                        <h3 class="display-5" style="font-family: 'Fjalla One', sans-serif; text-decoration: underline;">{{post.title}}</h3>
+                        <P class="lead" style="font-family: 'Fjalla One', sans-serif;">{{post.description}}</P>
+                        <hr>
+                        <a class="btn btn-outline-info" href="{{post.link}}" target="blank">Visit site</a>
+                        <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap">Rate now</button>
+
+                    </div>
+                </div>
                 
             
             {% if post.account == user %}
-                <div>
-                    <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'update' post.id %}">Update</a>
-                    <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'delete' post.id %}">Delete</a>
-                </div>
-            {% endif %}
-            <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap">Rate now</button>
+        
+                <hr>
+                <hr>
 
+                <div class="container">
+                    
+                    <div class="row" >
+                        <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'update' post.id %}">Update</a>
+                        <hr>
+                        <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'delete' post.id %}">Delete</a>
+                    </div>
+                </div>
+                <hr>
+            {% endif %}
+           
+            <hr>
             
-            <div class="row">
-                <div class="col-md-4">Design <span class="badge badge-pill badge-secondary">{{post.design}}</span></div>
-                <div class="col-md-4">Usability <span class="badge badge-pill badge-info">{{post.usability}}</span></div>
-                <div class="col-md-4">Content <span class="badge badge-pill badge-danger">{{post.content}}</span></div>
-              </div>
-              <h3 style="margin:20px;">Average Score <span class="badge badge-primary">{{average_score}}</span></h3>
+            
+                <div class="jumbotron jumbotron-fluid">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-4">Design <span class="badge badge-pill badge-secondary">{{post.design}}</span></div>
+                            <div class="col-md-4">Usability <span class="badge badge-pill badge-info">{{post.usability}}</span></div>
+                            <div class="col-md-4">Content <span class="badge badge-pill badge-danger">{{post.content}}</span></div>
+                        </div>
+                        <h3 class="text-center" style="margin:20px;">Average Score <span class="badge badge-primary">{{average_score}}</span></h3>
+
+                    </div>   
+
+                </div>
                    
              
         </div>
@@ -38,7 +66,7 @@
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                  <h5 class="modal-title" id="exampleModalLabel">Give us your ratings</h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>

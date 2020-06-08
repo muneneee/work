@@ -3,24 +3,34 @@
 {% block content %}
 {{block.super}}
 
-
-    <h1>WELCOME</h1>
-    <div class="row">
-        {% for post in posts %}
-            <div class="col-lg-3 d-flex align-items-stretch">
-                    <div class="card" style="width: 18rem;">
-                        <img class="card-img-top" src="{{ post.photo.cdn_url }}" alt="Card image cap">
-                        <div class="card-body">
-                        <h5 class="card-title">{{post.title}}</h5>
-                        <p class="card-text">{{post.description}}</p>
-                        <a href="{% url 'detail' post.id %}" class="btn btn-outline-primary">View Details</a>
+    <div class="container">
+        <h1 style="font-family: 'Metal Mania', cursive;" class="text-center">AWWARDS</h1>
+        <hr>
+        <div class="row">
+            {% for post in posts %}
+                <div class="col-lg-3 d-flex align-items-stretch">
+                        <div class="card" style="width: 18rem; background-color: rgb(229, 232, 233)">
+                            <img class="card-img-top" src="{{ post.photo.cdn_url }}" alt="Card image cap">
+                            <div class="card-body">
+                            <h5 class="card-title" style="font-family: 'Fjalla One', sans-serif;">{{post.title}}</h5>
+                            <p class="card-text" style="font-family: 'Fjalla One', sans-serif;">{{post.description}}</p>
+                            <a href="{% url 'detail' post.id %}" class="btn btn-outline-primary">View Details</a>
+                            </div>
                         </div>
-                    </div>
+                        <hr>
+                        <hr>
 
-            </div>
-            <br>
-        {% endfor%}
+                </div>
+                <hr>
+                <hr>
+            {% endfor%}
+            <hr>
+            <hr>
+        </div>
+        <hr>
+        <hr>
     </div>
+    <hr>
 
 
 {% endblock %}
