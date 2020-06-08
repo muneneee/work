@@ -10,6 +10,6 @@ urlpatterns=[
     path('post/new/', CreateView.as_view(), name='create'),
     path('post/<int:pk>/update/', UpdatePostView.as_view(), name='update'),
     path('post/<int:pk>/delete/', DeletePostView.as_view(), name='delete'),
-    path('search/', views.search_results, name = 'search_results')
-
+    path('search/', views.search_results, name = 'search_results'),
+    path('api/project/', views.ProjectList.as_view()),
 ]

@@ -5,6 +5,9 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin,UserPassesTestMixin
 from django.views.generic import ListView,DetailView,CreateView,UpdateView,DeleteView,View
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from .serializer import ProfileSerializer,ProjectSerializer
 from django.core.exceptions import ObjectDoesNotExist
 from pyuploadcare.dj.forms import ImageField
 
@@ -184,3 +187,10 @@ class DeletePostView(LoginRequiredMixin,UserPassesTestMixin,DeleteView):
         if self.request.user == post.account:
             return True
         return False
+
+
+class ProjectList(APIView):
+    def get(self, request, format=None):
+        all_projects = Project.objects.all()
+        serializers = ProjectSerializer(all_projects, many=True)
+        return Response(serializers.data)
