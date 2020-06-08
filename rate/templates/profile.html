@@ -19,15 +19,17 @@
         </blockquote>
         <hr>
         <hr>
-        <!-- <h3 class="text-center">My posts</h3>
-        {% for post in posts %}
-            <div class="row">
-                <div class="col-md-4">
+        <h3 class="text-center">My projects</h3>
+        <div class="row">
+            {% for post in posts %}
+                
+                    <div class="col-md-4">
 
-                    <a href="{% url 'detail' post.id %}"><img class="img-fluid" src="{{post.image.cdn_url}}" style="cursor: pointer;"></a>
-                </div>
-            </div>
-        {% endfor %} -->
+                        <a href="{% url 'detail' post.id %}"><img class="img-fluid" src="{{post.photo.cdn_url}}" style="cursor: pointer;"></a>
+                    </div>
+            
+            {% endfor %} 
+        </div>
     </div>  
     <hr>
 

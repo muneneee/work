@@ -109,7 +109,7 @@ def profile(request):
     except ObjectDoesNotExist:
         return redirect('profile')
 
-    context = {'user_form':user_form, 'profile_form':profile_form}
+    context = {'user_form':user_form, 'profile_form':profile_form, 'posts':posts}
 
 
     return render(request, 'profile.html', context)
