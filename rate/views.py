@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect,HttpResponseRedirect
+from django.shortcuts import render,redirect,HttpResponseRedirect,Http404
 from .models import Project,Profile
 from .forms import RegisterForm,ProfileForm,UpdateForm,VoteForm
 from django.contrib import messages
@@ -30,7 +30,7 @@ def detail(request,project_id):
         if request.method == 'POST':
             vote_form = VoteForm(request.POST)
             if vote_form.is_valid():
-                post.vote_submissions+=1
+                post.votes+=1
                 if post.design == 0:
                     post.design = int(request.POST['design'])
                 else:
@@ -49,8 +49,8 @@ def detail(request,project_id):
         else:
             vote_form = VoteForm()
 
-    except Exception as  e:
-        raise Http404()
+    except ObjectDoesNotExist:
+        return redirect('detail',project_id)
     return render(request,'detail.html',{"vote_form":vote_form,"post":post,"average_score":average_score})
 
 
@@ -101,7 +101,7 @@ def profile(request):
 
     try:
         profile = Profile.objects.get(user=current_user)
-        posts = Projects.objects.filter(account_id= current_user_id)
+        posts = Project.objects.filter(account_id= current_user_id)
 
     except ObjectDoesNotExist:
         return redirect('profile')

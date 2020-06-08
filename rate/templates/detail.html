@@ -11,28 +11,6 @@
             <hr>
                 <img class="img-fluid" src="{{post.photo.cdn_url}}" alt="">
                 
-                    {% for review in post.review_set.all %}
-                        <p>{{review.criteria}}</p>
-
-                        <form action="{% url 'detail' post.id %}" method="post">
-                            {% csrf_token %} 
-                            {% for choice in review.choice_set.all %}
-                                <div class="form-check">
-                                    <input
-                                        type="radio"
-                                        name="choice"
-                                        class="form-check-input"
-                                        id="choice{{ forloop.counter }}"
-                                        value="{{ choice.id }}"
-                                    />
-                                    <label for="choice{{ forloop.counter }}">{{ choice.choice_name }}</label
-                                    >
-                                </div>
-                            {% endfor %}
-                            <input type="submit" value="Vote" class="btn btn-success" >
-                        </form>
-
-                    {% endfor %}
                 
             
             {% if post.account == user %}
@@ -41,15 +19,48 @@
                     <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'delete' post.id %}">Delete</a>
                 </div>
             {% endif %}
+            <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap">Rate now</button>
+
             
-
-                    <p>{{review.criteria}}</p>
-
+            <div class="row">
+                <div class="col-md-4">Design <span class="badge badge-pill badge-secondary">{{post.design}}</span></div>
+                <div class="col-md-4">Usability <span class="badge badge-pill badge-info">{{post.usability}}</span></div>
+                <div class="col-md-4">Content <span class="badge badge-pill badge-danger">{{post.content}}</span></div>
+              </div>
+              <h3 style="margin:20px;">Average Score <span class="badge badge-primary">{{average_score}}</span></h3>
+                   
              
         </div>
         
         <br><br>
         <hr>
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <form  method="POST" class="{% url 'detail' post.pk %}" action="" enctype="multipart/form-data">
+                      {% csrf_token %}
+                      <fieldset class="form-group">
+                          {{ vote_form|crispy }}
+                      </fieldset>
+                      <div class="form-group">
+                          <button class="btn btn-outline-info" type="submit" value="save">Submit vote</button>
+          
+                      </div>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+        </div>
         
        
 
