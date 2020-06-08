@@ -21,6 +21,14 @@ class Project(models.Model):
         return self.title
 
 
+    def save_project(self):
+        self.save()
+
+    def delete_project(self):
+        self.delete()
+
+
+
     @classmethod
     def search_by_title(cls,search_term):
         posts = cls.objects.filter(title__icontains=search_term)
@@ -37,5 +45,12 @@ class Profile(models.Model):
 
     def __str__(self):
         return f'{self.user.username} Profile'
+
+
+    def save_profile(self):
+        self.save()
+
+    def delete_profile(self):
+        self.delete()
 
 
